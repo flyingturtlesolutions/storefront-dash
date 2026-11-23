@@ -8,5 +8,11 @@
     "compare": true,
     "by": "category"
   },
-  "sections": ["filters", "kpis", "daily", "rpm", "table", "askbar"]
+  "sections": [
+    "filters",
+    "kpis",
+    "daily",
+    "table",
+    "askbar"
+  ]
 }
