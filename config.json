@@ -1,0 +1,12 @@
+{
+  "title": "Storefront",
+  "settings": {
+    "range": 30,
+    "region": "ALL",
+    "metric": "revenue",
+    "category": null,
+    "compare": true,
+    "by": "category"
+  },
+  "sections": ["filters", "kpis", "daily", "rpm", "table", "askbar"]
+}
