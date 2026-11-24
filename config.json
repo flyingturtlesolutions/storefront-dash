@@ -8,5 +8,5 @@
     "compare": true,
     "by": "category"
   },
-  "sections": []
+  "sections": ["roster"]
 }
