@@ -1,8 +1,8 @@
 [build]
   publish = "."
-  # Plain static files, no build step. An explicit command stops Netlify from
-  # guessing a framework (config.json makes it detect Hugo).
-  command = "echo 'No build step: static files'"
+  # Writes version.json (file hashes) so open dashboards reload changed parts.
+  # Also stops Netlify guessing a framework (config.json makes it detect Hugo).
+  command = "node scripts/version.mjs"
 
 [[headers]]
   for = "/*"

@@ -19,7 +19,8 @@ export default {
     const plot = el.querySelector('.rp-plot');
     plot.addEventListener('pointermove', e => { if (!RG) return; const r = plot.getBoundingClientRect(), k = r.width ? RG.W / r.width : 1; hover(el, Math.floor(((e.clientX - r.left) * k - RG.L) / RG.band)); });
     plot.addEventListener('pointerleave', () => unhover(el));
-    new ResizeObserver(() => { const w = plot.clientWidth; if (w && w !== LW) { LW = w; draw(ctx); } }).observe(plot);
+    const ro = new ResizeObserver(() => { const w = plot.clientWidth; if (w && w !== LW) { LW = w; draw(ctx); } });
+    ro.observe(plot);
     clearInterval(timer);
     timer = setInterval(() => {
       if (document.hidden) return;
@@ -27,6 +28,7 @@ export default {
       while (RH[RH.length - 1].m < m) { const nm = RH[RH.length - 1].m + 1; RH.push({ m: nm, k: ctx.rk(nm) }); if (RH.length > 60) RH.shift(); }
       draw(ctx);
     }, 2000);
+    ctx.signal?.addEventListener('abort', () => { clearInterval(timer); ro.disconnect(); });
   },
   update(ctx, changed) { if (!changed || changed.some(k => ['region', 'category'].includes(k)) || !RG) draw(ctx); }
 };

@@ -13,7 +13,7 @@ export default {
       clearTimeout(ctx.t); ctx.t = setTimeout(() => { ok.textContent = ''; }, 4000);
     };
     el.addEventListener('click', e => { const b = e.target.closest('[data-q]'); if (b) copy(b.dataset.q); });
-    window.addEventListener('dash:ask', e => copy(e.detail));
+    window.addEventListener('dash:ask', e => copy(e.detail), { signal: ctx.signal });
   },
   update(ctx) {
     const { el, core, state: S } = ctx, l = core.MET[S.metric].l;

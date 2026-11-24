@@ -28,7 +28,9 @@ export default {
     el.querySelector('.dl-ask').addEventListener('click', () => {
       const S = ctx.state; if (S.day != null) window.dispatchEvent(new CustomEvent('dash:ask', { detail: 'What happened on ' + ctx.core.lab(S.day) + '?' }));
     });
-    new ResizeObserver(() => { const w = plot.clientWidth; if (w && w !== LW) { LW = w; draw(ctx); } }).observe(plot);
+    const ro = new ResizeObserver(() => { const w = plot.clientWidth; if (w && w !== LW) { LW = w; draw(ctx); } });
+    ro.observe(plot);
+    ctx.signal?.addEventListener('abort', () => ro.disconnect());
   },
   update(ctx) { draw(ctx); }
 };
