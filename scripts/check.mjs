@@ -13,7 +13,7 @@ try { cfg = JSON.parse(await readFile(path.join(root, 'config.json'), 'utf8')); 
 catch (e) { fail('config.json: ' + e.message); }
 
 if (cfg) {
-  if (!Array.isArray(cfg.sections) || !cfg.sections.length) fail('config.json: "sections" must be a non-empty list');
+  if (!Array.isArray(cfg.sections)) fail('config.json: "sections" must be a list (it may be empty)');
   const seen = new Set();
   for (const id of cfg.sections || []) {
     if (seen.has(id)) fail(`config.json: section "${id}" is listed twice`);
@@ -37,4 +37,4 @@ if (cfg) {
 try { await import(pathToFileURL(path.join(root, 'js/core.js')).href); } catch (e) { fail('js/core.js does not load: ' + e.message); }
 
 if (problems.length) { console.error('check failed:\n- ' + problems.join('\n- ')); process.exit(1); }
-console.log(`check ok: ${cfg.sections.length} sections (${cfg.sections.join(', ')})`);
+console.log(`check ok: ${cfg.sections.length} sections${cfg.sections.length ? ' (' + cfg.sections.join(', ') + ')' : ' (blank surface)'}`);
